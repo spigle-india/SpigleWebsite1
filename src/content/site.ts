@@ -4,8 +4,8 @@ export const site = {
   description:
     "Spigle is an AI-powered business consulting company. We help medium-sized businesses and enterprises scale through strategy, intelligent automation, technology, and disciplined execution.",
   url: "https://spigle.com",
-  email: "Spigle.india@gmail.com",
-  phone: "+1 (555) 014-2280",
+  email: "spigle.india@gmail.com",
+  phone: "+91 9043178782",
   socials: {
     linkedin: "https://www.linkedin.com/company/spigle-india",
     x: "https://x.com/spigle",
