@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  /* Ink — the near-black that carries all primary type */
+  --color-ink: #0a0b0d;
+  --color-ink-2: #1b1d23;
+
+  /* Neutrals — a quiet, premium gray hierarchy */
+  --color-muted: #565b66;
+  --color-faint: #858a94;
+  --color-line: #e9eaee;
+  --color-line-strong: #d8dade;
+  --color-surface: #f6f6f8;
+  --color-surface-2: #efeff2;
+
+  /* Professional blue — used sparingly */
+  --color-brand: #2f5ce8;
+  --color-brand-deep: #2046bd;
+
+  /* Soft orange — primary CTAs, highlights, interactive states */
+  --color-accent: #ef7f3c;
+  --color-accent-deep: #d9682a;
+  --color-accent-soft: #fdf0e5;
+  --color-accent-ink: #8a3d12;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --animate-marquee: marquee 46s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .animate-marquee {
+      animation: none;
+    }
+  }
+}
+
+/* Thin, quiet scrollbar for the sticky header surface */
+@supports (scrollbar-width: thin) {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
 }

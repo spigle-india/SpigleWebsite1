@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spigle — September Trial 2026 | Campaign Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241019;
+    --ink-soft:#4a3540;
+    --blush:#FBF1EE;
+    --blush-deep:#F3E2DC;
+    --wine:#7E2A44;
+    --wine-deep:#5C1E33;
+    --rose-gold:#C98B6B;
+    --rose-gold-soft:#E8C4A8;
+    --sage:#5F7E63;
+    --sage-soft:#E4EBE1;
+    --amber:#9C5A2E;
+    --amber-soft:#F1DEC8;
+    --plum-dark:#2B1521;
+    --plum-darker:#1D0E17;
+    --line:rgba(36,16,25,0.12);
+    --line-light:rgba(251,241,238,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--blush);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  .display{ font-family:'Fraunces', serif; }
+
+  /* ---------- swatch strip ---------- */
+  .swatch-strip{ display:flex; height:10px; width:100%; }
+  .swatch-strip span{ flex:1; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(201,139,107,0.35), transparent 60%),
+      linear-gradient(160deg, var(--plum-darker) 0%, var(--plum-dark) 55%, var(--wine-deep) 100%);
+    color:var(--blush);
+    padding:64px 8vw 72px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-120px; top:-120px;
+    width:420px; height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, rgba(232,196,168,0.55), rgba(232,196,168,0) 70%);
+    filter:blur(2px);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--rose-gold-soft);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--rose-gold-soft); display:inline-block; }
+  .hero h1{
+    font-weight:500;
+    font-size:clamp(32px, 4.2vw, 54px);
+    line-height:1.1;
+    max-width:19ch;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{ font-style:italic; color:var(--rose-gold-soft); font-weight:500;}
+  .hero-sub{
+    margin-top:20px;
+    max-width:56ch;
+    font-size:16px;
+    line-height:1.6;
+    color:rgba(251,241,238,0.72);
+  }
+  .hero-meta{
+    margin-top:40px;
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line-light);
+    padding-top:24px;
+  }
+  .hero-meta div{ font-size:13px; color:rgba(251,241,238,0.55); }
+  .hero-meta strong{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:20px;
+    font-weight:500;
+    color:var(--blush);
+    margin-top:4px;
+  }
+
+  /* ---------- HEADLINE STAT BAR ---------- */
+  .headline-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin:-40px 8vw 0;
+    position:relative;
+    z-index:2;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 24px 48px -20px rgba(43,21,33,0.35);
+  }
+  .headline-stats .cell{ background:var(--blush); padding:26px 24px; }
+  .headline-stats .cell .big{
+    font-family:'Fraunces', serif;
+    font-size:clamp(26px,2.6vw,36px);
+    font-weight:500;
+    color:var(--wine-deep);
+    letter-spacing:-0.01em;
+  }
+  .headline-stats .cell .lbl{ margin-top:6px; font-size:12.5px; color:var(--ink-soft); line-height:1.4; }
+  .headline-stats .cell .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:3px 8px;
+    border-radius:20px;
+    background:var(--sage-soft);
+    color:var(--sage);
+    letter-spacing:0.02em;
+  }
+  .headline-stats .cell .tag.amber{ background:var(--amber-soft); color:var(--amber); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding:88px 8vw; }
+  .section-head{ margin-bottom:44px; max-width:66ch; }
+  .section-head .eyebrow{ color:var(--wine); }
+  .section-head .eyebrow .dot{ background:var(--wine); }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(26px,3vw,36px);
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  .section-head p{ margin-top:14px; color:var(--ink-soft); font-size:15.5px; line-height:1.65; }
+
+  /* ---------- COMPARISON BARS ---------- */
+  .compare-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .compare-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px 26px 22px; }
+  .compare-card .ctitle{
+    font-size:13.5px; font-weight:600; color:var(--ink);
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .compare-card .ctitle .delta{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--sage);
+    background:var(--sage-soft); padding:2px 8px; border-radius:20px;
+  }
+  .compare-card .ctitle .delta.amber{ background:var(--amber-soft); color:var(--amber); }
+  .bar-row{ margin-top:16px; }
+  .bar-row .bar-label{ display:flex; justify-content:space-between; font-size:12px; color:var(--ink-soft); margin-bottom:5px; }
+  .bar-row .bar-label .val{ font-family:'IBM Plex Mono', monospace; color:var(--ink); }
+  .bar-track{ height:10px; background:var(--blush-deep); border-radius:6px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:6px; }
+  .bar-fill.wine{ background:linear-gradient(90deg,var(--wine),var(--wine-deep)); }
+  .bar-fill.rose{ background:linear-gradient(90deg,var(--rose-gold-soft),var(--rose-gold)); }
+
+  /* ---------- KPI CARD GRID ---------- */
+  .kpi-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .kpi-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px 18px; position:relative; }
+  .kpi-card .swatch{ width:14px; height:14px; border-radius:50%; margin-bottom:14px; box-shadow:inset -2px -2px 4px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1); }
+  .kpi-card .num{ font-family:'Fraunces', serif; font-size:26px; font-weight:500; color:var(--ink); }
+  .kpi-card .lbl{ margin-top:4px; font-size:12px; color:var(--ink-soft); }
+
+  /* ---------- CONTEXT COLUMNS ---------- */
+  .context-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .context-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px; }
+  .context-card .ctag{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:4px 10px; border-radius:20px; margin-bottom:18px;
+  }
+  .context-card.good .ctag{ background:var(--sage-soft); color:var(--sage); }
+  .context-card.watch .ctag{ background:var(--amber-soft); color:var(--amber); }
+  .context-card ul{ list-style:none; }
+  .context-card li{
+    font-size:14.5px; line-height:1.6; color:var(--ink-soft);
+    padding-left:20px; position:relative; margin-bottom:16px;
+  }
+  .context-card li:last-child{ margin-bottom:0; }
+  .context-card li::before{
+    content:"—"; position:absolute; left:0; color:var(--rose-gold);
+  }
+  .context-card li strong{ color:var(--ink); font-weight:600; }
+
+  /* ---------- RECOMMENDATIONS ---------- */
+  .rec-list{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .rec-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; }
+  .rec-card .rnum{
+    font-family:'Fraunces', serif; font-style:italic; font-size:28px; color:var(--rose-gold); margin-bottom:10px; display:block;
+  }
+  .rec-card h3{ font-size:15px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+  .rec-card p{ font-size:13.5px; color:var(--ink-soft); line-height:1.6; }
+
+  /* ---------- TABLE ---------- */
+  .table-wrap{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  thead th{
+    text-align:left; font-family:'IBM Plex Mono', monospace; font-weight:500; font-size:11px;
+    letter-spacing:0.03em; text-transform:uppercase; color:var(--ink-soft);
+    background:var(--blush-deep); padding:14px 18px; border-bottom:1px solid var(--line);
+  }
+  tbody td{ padding:14px 18px; border-bottom:1px solid var(--line); color:var(--ink); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr.highlight td{ background:linear-gradient(0deg, rgba(126,42,68,0.06), rgba(126,42,68,0.06)); font-weight:600; }
+  tbody tr.baseline td{ background:linear-gradient(0deg, rgba(201,139,107,0.08), rgba(201,139,107,0.08)); }
+  tbody td .postname{ max-width:280px; display:block; color:var(--ink); }
+  .pill{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:2px 8px; border-radius:20px; background:var(--sage-soft); color:var(--sage); }
+  .pill.wine{ background:rgba(126,42,68,0.1); color:var(--wine); }
+  .pill.rose{ background:rgba(201,139,107,0.15); color:var(--rose-gold); }
+
+  /* ---------- CHART SECTION ---------- */
+  .chart-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:30px 30px 10px; }
+  .chart-card canvas{ max-height:320px; }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--plum-darker); color:rgba(251,241,238,0.55); padding:40px 8vw;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:12.5px;
+  }
+  footer .brand{ font-family:'Fraunces', serif; color:var(--blush); font-size:16px; }
+
+  @media (max-width:900px){
+    .headline-stats{ grid-template-columns:repeat(2,1fr); margin:-24px 5vw 0;}
+    section{ padding:56px 5vw; }
+    .hero{ padding:48px 5vw 56px; }
+    .compare-grid{ grid-template-columns:1fr; }
+    .kpi-grid{ grid-template-columns:repeat(2,1fr); }
+    .context-grid{ grid-template-columns:1fr; }
+    .rec-list{ grid-template-columns:1fr; }
+    table{ font-size:12px; }
+    thead th:nth-child(4), tbody td:nth-child(4){ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="swatch-strip">
+  <span style="background:#7E2A44"></span>
+  <span style="background:#C98B6B"></span>
+  <span style="background:#5F7E63"></span>
+  <span style="background:#E8C4A8"></span>
+  <span style="background:#2B1521"></span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow"><span class="dot"></span>Campaign Report — Spigle Digital</div>
+  <h1>September Trial 2026 — a shorter runway, and what it taught us.</h1>
+  <p class="hero-sub">Our second managed campaign for NBK, greenlit and launched on a compressed timeline. It didn't match August's efficiency — and we're not going to dress that up — but it still generated 42 real conversations and beat where this account started before Spigle. Here's the honest breakdown, and what changes for round three.</p>
+  <div class="hero-meta">
+    <div>Client<strong>Nail Artist — NBK</strong></div>
+    <div>Campaign window<strong>August 31 – Sep 3, 2026</strong></div>
+    <div>Objective<strong>Messaging conversations</strong></div>
+    <div>Status<strong>Completed</strong></div>
+  </div>
+</div>
+
+<!-- HEADLINE STATS -->
+<div class="headline-stats">
+  <div class="cell">
+    <div class="big">₹12.26</div>
+    <div class="lbl">Cost per conversation</div>
+    <div class="tag amber">↑ 73.4% vs August</div>
+  </div>
+  <div class="cell">
+    <div class="big">42</div>
+    <div class="lbl">Conversations started</div>
+    <div class="tag amber">↓ 16.0% vs August</div>
+  </div>
+  <div class="cell">
+    <div class="big">2.96%</div>
+    <div class="lbl">Click‑through rate</div>
+    <div class="tag amber">↓ 16.0% vs August</div>
+  </div>
+  <div class="cell">
+    <div class="big">₹514.86</div>
+    <div class="lbl">Total spend</div>
+    <div class="tag amber">↑ 45.6% vs August</div>
+  </div>
+</div>
+
+<!-- CAMPAIGN SNAPSHOT -->
+<section>
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>01 — Campaign Snapshot</div>
+    <h2>September Trial 2026</h2>
+    <p>Flighted Aug 8–Sep 3 on a single ad set budget, optimised for messaging conversations. Figures below reflect final, attribution-matured delivery data (7‑day click / 1‑day view window) as pulled from Meta Ads Manager.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="swatch" style="background:#7E2A44"></div>
+      <div class="num mono">4,219</div>
+      <div class="lbl">Reach</div>
+    </div>
+    <div class="kpi-card">
+      <div class="swatch" style="background:#C98B6B"></div>
+      <div class="num mono">8,278</div>
+      <div class="lbl">Impressions</div>
+    </div>
+    <div class="kpi-card">
+      <div class="swatch" style="background:#5F7E63"></div>
+      <div class="num mono">1.96</div>
+      <div class="lbl">Frequency</div>
+    </div>
+    <div class="kpi-card">
+      <div class="swatch" style="background:#E8C4A8"></div>
+      <div class="num mono">245</div>
+      <div class="lbl">Total clicks</div>
+    </div>
+    <div class="kpi-card">
+      <div class="swatch" style="background:#2B1521"></div>
+      <div class="num mono">₹62.20</div>
+      <div class="lbl">CPM</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON VS AUGUST -->
+<section style="padding-top:0;">
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>02 — September vs. August</div>
+    <h2>How this cycle compares to our first trial</h2>
+    <p>August is now the benchmark for this account. Measured against it, September's efficiency softened — reach and impressions grew, but it cost more to generate each conversation.</p>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="ctitle">Cost per conversation <span class="delta amber">↑ 73.4%</span></div>
+      <div class="bar-row">
+        <div class="bar-label"><span>August (baseline)</span><span class="val">₹7.07</span></div>
+        <div class="bar-track"><div class="bar-fill rose" style="width:57.7%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>September Trial 2026</span><span class="val">₹12.26</span></div>
+        <div class="bar-track"><div class="bar-fill wine" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <div class="compare-card">
+      <div class="ctitle">Conversations started <span class="delta amber">↓ 16.0%</span></div>
+      <div class="bar-row">
+        <div class="bar-label"><span>August (baseline)</span><span class="val">50</span></div>
+        <div class="bar-track"><div class="bar-fill rose" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>September Trial 2026</span><span class="val">42</span></div>
+        <div class="bar-track"><div class="bar-fill wine" style="width:84%"></div></div>
+      </div>
+    </div>
+
+    <div class="compare-card">
+      <div class="ctitle">Click‑through rate (all) <span class="delta amber">↓ 16.0%</span></div>
+      <div class="bar-row">
+        <div class="bar-label"><span>August (baseline)</span><span class="val">3.52%</span></div>
+        <div class="bar-track"><div class="bar-fill rose" style="width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>September Trial 2026</span><span class="val">2.96%</span></div>
+        <div class="bar-track"><div class="bar-fill wine" style="width:84%"></div></div>
+      </div>
+    </div>
+
+    <div class="compare-card">
+      <div class="ctitle">Reach <span class="delta">↑ 16.6%</span></div>
+      <div class="bar-row">
+        <div class="bar-label"><span>August (baseline)</span><span class="val">3,618</span></div>
+        <div class="bar-track"><div class="bar-fill rose" style="width:85.8%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>September Trial 2026</span><span class="val">4,219</span></div>
+        <div class="bar-track"><div class="bar-fill wine" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section style="padding-top:0;">
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>03 — Reading the Dip</div>
+    <h2>What held up, and where efficiency softened</h2>
+    <p>No spin here — just the fuller picture behind the topline numbers.</p>
+  </div>
+
+  <div class="context-grid">
+    <div class="context-card good">
+      <div class="ctag">● What held up</div>
+      <ul>
+        <li><strong>92 real conversations</strong> generated across the two campaigns to date (50 in August, 42 in September) — a growing base of warm leads for NBK.</li>
+        <li>Reach grew <strong>16.6%</strong> to 4,219 people and impressions grew <strong>48%</strong> to 8,278 — more of the target audience saw the brand this cycle than last.</li>
+        <li><strong>CPM held flat</strong> — ₹62.20 vs ₹63.24 in August — so the dip wasn't caused by a more expensive ad market.</li>
+        <li>At ₹12.26, cost per conversation is still <strong>37% cheaper</strong> than the ₹19.58 NBK was paying per lead through self‑managed boosted posts before working with Spigle.</li>
+      </ul>
+    </div>
+    <div class="context-card watch">
+      <div class="ctag">● Where it softened</div>
+      <ul>
+        <li>Cost per conversation rose from <strong>₹7.07 to ₹12.26</strong>, and total conversations dropped from 50 to 42, on 45.6% more spend.</li>
+        <li>Frequency climbed to <strong>1.96</strong> (from 1.55) — the same people were shown the ad nearly twice as often, a sign the audience wasn't given room to expand.</li>
+        <li>Click‑through rate softened from 3.52% to <strong>2.96%</strong>, consistent with creative fatigue as frequency rose.</li>
+        <li>This campaign was greenlit and launched on a <strong>compressed timeline</strong>, leaving less runway than August for audience testing and creative rotation before launch.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EFFICIENCY TREND CHART -->
+<section style="padding-top:0;">
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>04 — The Longer Trend</div>
+    <h2>Still well ahead of where this account started</h2>
+    <p>Conversations generated per ₹100 spent, across all three data points on record for NBK. September dipped from August's peak, but remains well above the pre‑Spigle baseline.</p>
+  </div>
+  <div class="chart-card">
+    <canvas id="efficiencyChart"></canvas>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section style="padding-top:0;">
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>05 — Round Three</div>
+    <h2>What changes from here</h2>
+    <p>Concrete, testable changes for the next campaign — not just an explanation for this one.</p>
+  </div>
+  <div class="rec-list">
+    <div class="rec-card">
+      <span class="rnum">01</span>
+      <h3>Longer lead time</h3>
+      <p>Lock the brief at least 7–10 days before launch so audience and creative testing isn't compressed into the flight itself.</p>
+    </div>
+    <div class="rec-card">
+      <span class="rnum">02</span>
+      <h3>Widen the audience</h3>
+      <p>Expand targeting or add a lookalike segment to bring frequency back down from 1.96 and reduce repeat‑impression fatigue.</p>
+    </div>
+    <div class="rec-card">
+      <span class="rnum">03</span>
+      <h3>Refresh creative mid‑flight</h3>
+      <p>Rotate in new creative once frequency crosses ~1.5 to keep CTR from sliding as the same ad repeats.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE: FULL BREAKDOWN -->
+<section style="padding-top:0;">
+  <div class="section-head">
+    <div class="eyebrow"><span class="dot"></span>06 — Full Breakdown</div>
+    <h2>Every data point on record</h2>
+    <p>The pre‑Spigle self‑managed baseline, the August trial, and September Trial 2026, side by side. Boosted‑post figures are a 3‑day aggregate and shown as directional context, not a like‑for‑like window.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Campaign</th>
+          <th>Spend (₹)</th>
+          <th>Results</th>
+          <th>Reach</th>
+          <th>Impr.</th>
+          <th>CTR (all)</th>
+          <th>Cost / result</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">Spigle Digital</div>
+  <div>Campaign report generated for internal &amp; client review · Data source: Meta Ads Manager, Aug 8 – Sep 6 2026</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script>
+  const rows = [
+    {name:"Boosted posts (pre‑Spigle, avg. of 7)", spend:469.88, results:24, reach:5505, impr:5862, ctr:2.695, cpr:19.58, tag:'rose', tagLabel:'Pre‑Spigle baseline'},
+    {name:"Spigle — NBK Trial August", spend:353.55, results:50, reach:3618, impr:5591, ctr:3.523520, cpr:7.071, tag:'wine', tagLabel:'Spigle managed', cls:'baseline'},
+    {name:"September Trial 2026", spend:514.86, results:42, reach:4219, impr:8278, ctr:2.959652, cpr:12.258571, tag:'wine', tagLabel:'Spigle managed · current', cls:'highlight'},
+  ];
+
+  const tbody = document.getElementById('table-body');
+  rows.forEach(r=>{
+    const tr = document.createElement('tr');
+    if(r.cls) tr.className = r.cls;
+    tr.innerHTML = `
+      <td><span class="postname">${r.name}</span><span class="pill ${r.tag}" style="margin-top:6px;display:inline-block;">${r.tagLabel}</span></td>
+      <td class="mono">₹${r.spend.toFixed(2)}</td>
+      <td class="mono">${r.results}</td>
+      <td class="mono">${r.reach.toLocaleString()}</td>
+      <td class="mono">${r.impr.toLocaleString()}</td>
+      <td class="mono">${r.ctr.toFixed(2)}%</td>
+      <td class="mono">₹${r.cpr.toFixed(2)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  const ctx = document.getElementById('efficiencyChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Pre‑Spigle (boosted posts)', 'August Trial', 'September Trial 2026'],
+      datasets: [{
+        label: 'Conversations per ₹100 spent',
+        data: [5.11, 14.14, 8.16],
+        backgroundColor: ['#E8C4A8', '#7E2A44', '#9C5A2E'],
+        borderRadius: 8,
+        maxBarThickness: 90,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.parsed.x.toFixed(2)} conversations per ₹100`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(36,16,25,0.08)' },
+          ticks: { font: { family: 'IBM Plex Mono', size: 11 }, color: '#4a3540' },
+          title: { display: true, text: 'Conversations per ₹100 spent', color:'#4a3540', font:{family:'Inter', size:12} }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { font: { family: 'Inter', size: 13, weight: 500 }, color: '#241019' }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
